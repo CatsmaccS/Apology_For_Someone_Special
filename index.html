@@ -15,27 +15,29 @@
             height: 100vh;
             background-color: white;
             transition: background-color 0.5s ease;
+            font-family: 'Comic Sans MS', cursive, sans-serif;
         }
 
         #container {
-            position: relative;
             text-align: center;
             display: flex;
+            flex-direction: column;
             align-items: center;
+            padding: 20px;
         }
 
         #click-text {
             font-size: 1.5em;
-            font-family: 'Comic Sans MS', cursive, sans-serif;
             color: black;
-            margin-right: 20px;
+            margin-bottom: 20px;
         }
 
         #normal-image,
         #hover-image {
-            width: 400px;
-            height: 400px;
-            margin: 0 auto;
+            width: 80%;
+            max-width: 400px;
+            height: auto;
+            margin: 20px 0;
         }
 
         #hover-image {
@@ -47,8 +49,8 @@
         }
 
         #letter img {
-            width: 150px;
-            height: 90px;
+            width: 120px;
+            height: 80px;
             cursor: pointer;
             opacity: 0;
             transition: opacity 0.5s ease;
@@ -60,8 +62,8 @@
             top: 15%;
             left: 50%;
             transform: translate(-50%, -50%);
-            width: 60%;
-            max-width: 800px;
+            width: 80%;
+            max-width: 600px;
             background-color: #FCC1B4;
             padding: 20px;
             border: 1px solid #ccc;
@@ -73,20 +75,19 @@
         #letter-content p {
             margin: 0;
             color: white;
-            font-family: 'Comic Sans MS', cursive, sans-serif;
-            font-size: 2em;
+            font-size: 1.2em;
             text-shadow: 3px 3px 5px rgba(0, 0, 0, 0.5);
         }
 
         .button-container {
             display: flex;
-            justify-content: center;
+            flex-direction: column;
             margin-top: 10px;
+            gap: 10px;
         }
 
         .button {
-            padding: 8px 20px;
-            margin: 0 5px;
+            padding: 10px 20px;
             cursor: pointer;
             border: 2px solid white;
             border-radius: 8px;
@@ -110,9 +111,36 @@
         }
 
         #yay-image {
-            width: 500px;
-            height: 500px;
-            transform: rotate(-20deg) translateX(0px);
+            width: 80%;
+            max-width: 500px;
+            transform: rotate(-20deg);
+            margin: 20px auto;
+        }
+
+        /* Mobile Specific Adjustments */
+        @media (max-width: 600px) {
+            #click-text {
+                font-size: 1.2em;
+            }
+
+            #letter img {
+                width: 80px;
+                height: 50px;
+            }
+
+            #letter-content p {
+                font-size: 1em;
+            }
+
+            .button-container {
+                width: 100%;
+                align-items: center;
+            }
+
+            .button {
+                width: 80%;
+                padding: 12px 0;
+            }
         }
     </style>
 </head>
