@@ -80,7 +80,7 @@
             font-size: 1.2em;
             text-shadow: 3px 3px 5px rgba(0, 0, 0, 0.5);
             line-height: 1.5;
-            margin-bottom: 15px; /* Added bottom margin for spacing between paragraphs */
+            margin-bottom: 15px;
         }
 
         .button-container {
@@ -107,24 +107,6 @@
             color: #FCC1B4;
         }
 
-        @keyframes flicker {
-            0%, 100% {
-                background-color: #D364FC;
-            }
-            20% {
-                background-color: #ff0000;
-            }
-            40% {
-                background-color: #00ff00;
-            }
-            60% {
-                background-color: #0000ff;
-            }
-            80% {
-                background-color: #ffff00;
-            }
-        }
-
         #yay-image {
             width: 80%;
             max-width: 500px;
@@ -149,6 +131,41 @@
 
             #yay-image {
                 width: 70%;
+            }
+        }
+
+        /* New styles for the "No" button action */
+        #blackout {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: black;
+            display: none;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            font-size: 2em;
+            text-align: center;
+        }
+
+        /* Add rainbow flicker effect */
+        @keyframes flicker {
+            0%, 100% {
+                background-color: #D364FC;
+            }
+            20% {
+                background-color: #ff0000;
+            }
+            40% {
+                background-color: #00ff00;
+            }
+            60% {
+                background-color: #0000ff;
+            }
+            80% {
+                background-color: #ffff00;
             }
         }
     </style>
@@ -179,6 +196,11 @@
         </div>
     </div>
 
+    <!-- Blackout overlay for "No" button -->
+    <div id="blackout">
+        Разбирам
+    </div>
+
     <script>
         const normalImage = document.getElementById('normal-image');
         const hoverImage = document.getElementById('hover-image');
@@ -186,6 +208,7 @@
         const letterContent = document.getElementById('letter-content');
         const noButton = document.getElementById('no');
         const yesButton = document.getElementById('yes');
+        const blackout = document.getElementById('blackout');
         let triggered = false;
 
         normalImage.addEventListener('click', function () {
@@ -219,6 +242,7 @@
         yesButton.addEventListener('click', function () {
             sendToDiscord("Yes");
             document.body.style.animation = 'flicker 5s infinite alternate';
+            document.body.style.backgroundColor = 'black'; // Ensure black background is maintained
             document.body.innerHTML = ` 
             <div id="container">
                 <div id="yay-content" class="show">
@@ -231,12 +255,7 @@
 
         noButton.addEventListener('click', function () {
             sendToDiscord("No");
-            noButton.style.pointerEvents = 'none';
-            noButton.style.opacity = '0';
-            setTimeout(() => {
-                noButton.style.opacity = '1';
-                noButton.style.pointerEvents = 'auto';
-            }, 3000);
+            blackout.style.display = 'flex'; // Show the blackout and keep it visible
         });
     </script>
 </body>
