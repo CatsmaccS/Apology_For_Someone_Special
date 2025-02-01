@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Invitation</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: white;
+            transition: background-color 0.5s ease;
+        }
+
+        #container {
+            position: relative;
+            text-align: center;
+            display: flex;
+            align-items: center;
+        }
+
+        #click-text {
+            font-size: 1.5em;
+            font-family: 'Comic Sans MS', cursive, sans-serif;
+            color: black;
+            margin-right: 20px;
+        }
+
+        #normal-image,
+        #hover-image {
+            width: 400px;
+            height: 400px;
+            margin: 0 auto;
+        }
+
+        #hover-image {
+            display: none;
+        }
+
+        #letter {
+            margin-top: 20px;
+        }
+
+        #letter img {
+            width: 150px;
+            height: 90px;
+            cursor: pointer;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+
+        #letter-content {
+            display: none;
+            position: fixed;
+            top: 15%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 60%;
+            max-width: 800px;
+            background-color: #FCC1B4;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+
+        #letter-content p {
+            margin: 0;
+            color: white;
+            font-family: 'Comic Sans MS', cursive, sans-serif;
+            font-size: 2em;
+            text-shadow: 3px 3px 5px rgba(0, 0, 0, 0.5);
+        }
+
+        .button-container {
+            display: flex;
+            justify-content: center;
+            margin-top: 10px;
+        }
+
+        .button {
+            padding: 8px 20px;
+            margin: 0 5px;
+            cursor: pointer;
+            border: 2px solid white;
+            border-radius: 8px;
+            background-color: transparent;
+            color: white;
+            transition: background-color 0.3s ease;
+            user-select: none;
+        }
+
+        .button:hover {
+            background-color: white;
+            color: #FCC1B4;
+        }
+
+        @keyframes flicker {
+            0%, 100% { background-color: #D364FC; }
+            20% { background-color: #ff0000; }
+            40% { background-color: #00ff00; }
+            60% { background-color: #0000ff; }
+            80% { background-color: #ffff00; }
+        }
+
+        #yay-image {
+            width: 500px;
+            height: 500px;
+            transform: rotate(-20deg) translateX(0px);
+        }
+    </style>
+</head>
+
+<body>
+    <div id="container">
+        <div id="click-text">Click me</div>
+        <img id="normal-image" src="Images/1noBg.png" alt="Normal Image">
+        <img id="hover-image" src="Images/2noBg.png" alt="Hover Image">
+        <div id="letter">
+            <img src="Images/letter3.png" alt="Letter Icon">
+        </div>
+        <div id="letter-content">
+            <p>Здравейте Госпожице Ивона! Бихте ли били така добра да излезете с мен на среща на 4/4/2024!? -Мартин Михайлов</p>
+            <div class="button-container">
+                <div class="button" id="yes">Yes</div>
+                <div class="button" id="no">No</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const normalImage = document.getElementById('normal-image');
+        const hoverImage = document.getElementById('hover-image');
+        const letterIcon = document.getElementById('letter').getElementsByTagName('img')[0];
+        const letterContent = document.getElementById('letter-content');
+        const noButton = document.getElementById('no');
+        const yesButton = document.getElementById('yes');
+        let triggered = false;
+
+        normalImage.addEventListener('click', function () {
+            normalImage.style.display = 'none';
+            hoverImage.style.display = 'block';
+            setTimeout(() => {
+                hoverImage.style.display = 'none';
+                normalImage.style.display = 'block';
+            }, 100);
+            if (!triggered) {
+                letterIcon.style.opacity = '1';
+                triggered = true;
+            }
+        });
+
+        document.getElementById('letter').addEventListener('click', function () {
+            letterContent.style.display = 'block';
+            setTimeout(() => {
+                letterContent.style.opacity = '1';
+            }, 0);
+        });
+
+        function sendToDiscord(response) {
+            fetch("https://discord.com/api/webhooks/1335205499934740552/gSaaB7i1u-W1AVR83QnPrbq4_fRihXvIVtq2jXw-Lsqu86RZxkrMig9av-id4s0cv8ti", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ content: `User responded: ${response}` })
+            });
+        }
+
+        yesButton.addEventListener('click', function () {
+            sendToDiscord("Yes");
+            document.body.style.animation = 'flicker 5s infinite alternate';
+            document.body.innerHTML = `
+            <div id="container">
+                <div id="yay-content" class="show">
+                    <h1 style="color: white; font-size: 3em; text-shadow: 3px 3px 5px rgba(0, 0, 0, 0.5);">YAY</h1>
+                    <img id="yay-image" src="Images/yay.png" alt="Yay Image">
+                </div>
+            </div>
+        `;
+        });
+
+        noButton.addEventListener('click', function () {
+            sendToDiscord("No");
+            noButton.style.pointerEvents = 'none';
+            noButton.style.opacity = '0';
+            setTimeout(() => {
+                noButton.style.opacity = '1';
+                noButton.style.pointerEvents = 'auto';
+            }, 3000);
+        });
+    </script>
+</body>
+
+</html>
