@@ -14,27 +14,28 @@
             align-items: center;
             height: 100vh;
             background-color: white;
-            transition: background-color 0.5s ease;
-            font-family: Arial, Helvetica, sans-serif; /* Changed to a more readable font */
-            line-height: 1.6; /* Added line-height for better readability */
+            font-family: Arial, Helvetica, sans-serif;
+            line-height: 1.6;
+            padding: 20px;
         }
-    
+
         #container {
             position: relative;
             text-align: center;
             display: flex;
-            align-items: center;
             flex-direction: column;
-            padding: 20px; /* Added padding for spacing */
+            padding: 20px;
+            max-width: 100%;
+            width: 100%;
         }
-    
+
         #click-text {
-            font-size: 2.5em; /* Slightly larger font size for better visibility */
+            font-size: 2em;
             font-weight: bold;
             color: black;
             margin-bottom: 20px;
         }
-    
+
         #normal-image,
         #hover-image {
             width: 80%;
@@ -42,15 +43,15 @@
             height: auto;
             margin: 0 auto;
         }
-    
+
         #hover-image {
             display: none;
         }
-    
+
         #letter {
             margin-top: 20px;
         }
-    
+
         #letter img {
             width: 150px;
             height: 90px;
@@ -58,37 +59,36 @@
             opacity: 0;
             transition: opacity 0.5s ease;
         }
-    
+
         #letter-content {
             display: none;
-            position: fixed;
-            top: 35%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 80%;
-            max-width: 800px;
+            position: relative;
+            margin-top: 20px;
+            width: 100%;
+            max-width: 1200px;
             background-color: #FCC1B4;
             padding: 20px;
             border: 1px solid #ccc;
             border-radius: 10px;
             opacity: 0;
             transition: opacity 0.5s ease;
+            margin: 20px auto;
         }
-    
+
         #letter-content p {
-            margin: 0;
             color: white;
-            font-size: 1.75em; /* Increased font size for better readability */
+            font-size: 1.2em;
             text-shadow: 3px 3px 5px rgba(0, 0, 0, 0.5);
-            line-height: 1.5; /* Added line height for better spacing */
+            line-height: 1.5;
+            margin-bottom: 15px; /* Added bottom margin for spacing between paragraphs */
         }
-    
+
         .button-container {
             display: flex;
             justify-content: center;
-            margin-top: 10px;
+            margin-top: 20px;
         }
-    
+
         .button {
             padding: 12px 30px;
             margin: 0 5px;
@@ -97,46 +97,84 @@
             border-radius: 8px;
             background-color: transparent;
             color: white;
-            font-size: 1.4em; /* Slightly larger font size */
+            font-size: 1.2em;
             transition: background-color 0.3s ease;
             user-select: none;
         }
-    
+
         .button:hover {
             background-color: white;
             color: #FCC1B4;
         }
-    
+
         @keyframes flicker {
-            0%, 100% { background-color: #D364FC; }
-            20% { background-color: #ff0000; }
-            40% { background-color: #00ff00; }
-            60% { background-color: #0000ff; }
-            80% { background-color: #ffff00; }
+            0%, 100% {
+                background-color: #D364FC;
+            }
+            20% {
+                background-color: #ff0000;
+            }
+            40% {
+                background-color: #00ff00;
+            }
+            60% {
+                background-color: #0000ff;
+            }
+            80% {
+                background-color: #ffff00;
+            }
         }
-    
+
         #yay-image {
             width: 80%;
             max-width: 500px;
             height: auto;
             transform: rotate(-20deg) translateX(0px);
         }
+
+        /* Make content responsive on mobile devices */
+        @media (max-width: 768px) {
+            #click-text {
+                font-size: 1.5em;
+            }
+
+            #letter-content p {
+                font-size: 1em;
+            }
+
+            .button {
+                font-size: 1em;
+                padding: 10px 25px;
+            }
+
+            #yay-image {
+                width: 70%;
+            }
+        }
     </style>
 </head>
 
 <body>
     <div id="container">
-        <div id="click-text">Click me</div>
+        <div id="click-text">Цъкни ме</div>
         <img id="normal-image" src="Images/1noBg.png" alt="Normal Image">
         <img id="hover-image" src="Images/2noBg.png" alt="Hover Image">
         <div id="letter">
             <img src="Images/letter3.png" alt="Letter Icon">
         </div>
         <div id="letter-content">
-            <p>Здравейте Госпожице Ивона! Бихте ли били така добра да излезете с мен на среща на 4/4/2024!? -Мартин Михайлов</p>
+            <p>Здравей, Ивона,</p>
+            <p>Първо искам да ти кажа, че съжалявам дълбоко за всичко, което се случи и за думите, които ти казах. Въпреки че смятах, че мога да живея спокойно без теб, всеки път когато те видя, разбирам, че не е така. Нещата никога не са толкова лесни и винаги има още чувства, които не съм осъзнал.</p>
+            <p>Искам да се извиня и за всички неща, които казах за приятелите ти. Това, което изказах, беше чисто ревност и никакъв смисъл нямаше в думите ми. Те не отразяват това, което наистина чувствам или мисля. Няма оправдание за тях и се извинявам, че те нараних с това.</p>
+            <p>Последните дни не мога да спя спокойно, и всяка нощ си мисля за всичко, което се случи. През цялото време се чувствам разстроен и съкрушен. Истински съжалявам за всичко.</p>
+            <p>Най-важното, което искам да кажа е, че наистина съжалявам за начина, по който се държах. Искам да се опознаем отново, ако ми позволиш. Разбирам, че направих грешка и показах много грешна страна от себе си. В онзи момент бях в заблуда и мислех, че трябва да поставя граница, за да не се развият нещата повече. Но истината не осъзнавах вътрешно, че всъщност това, което искам, е точно да се сближим.</p>
+            <p>Направих всичко възможно за да дойда само, за да те видя, но накрая се разделяме по много грозен начин. Не искам да бъда такъв човек, и наистина съжалявам за всичко, което направих.</p>
+            <p>Независимо какво ще решиш, винаги ще те уважавам и ще съжалявам за болката, която съм причинил. Надявам се, ако имаш желание, да дадеш шанс да се опознаем по нов начин и да видиш как съм се променил и какъв човек съм всъщност.</p>
+            <p>С любов и искрени извинения,</p>
+            <p>-Мартин</p>
             <div class="button-container">
-                <div class="button" id="yes">Yes</div>
-                <div class="button" id="no">No</div>
+                <div class="button" id="yes">Приемам извинението</div>
+                <div class="button" id="no">Не прощавам</div>
             </div>
         </div>
     </div>
@@ -181,14 +219,14 @@
         yesButton.addEventListener('click', function () {
             sendToDiscord("Yes");
             document.body.style.animation = 'flicker 5s infinite alternate';
-            document.body.innerHTML = `
+            document.body.innerHTML = ` 
             <div id="container">
                 <div id="yay-content" class="show">
-                    <h1 style="color: white; font-size: 3em; text-shadow: 3px 3px 5px rgba(0, 0, 0, 0.5);">YAY</h1>
+                    <h1 style="color: white; font-size: 3em; text-shadow: 3px 3px 5px rgba(0, 0, 0, 0.5);">Пиши ми</h1>
                     <img id="yay-image" src="Images/yay.png" alt="Yay Image">
                 </div>
             </div>
-        `;
+        `; 
         });
 
         noButton.addEventListener('click', function () {
