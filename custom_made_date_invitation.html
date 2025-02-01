@@ -13,28 +13,28 @@
             justify-content: center;
             align-items: center;
             height: 100vh;
-            background-color: #f0f0f0;
+            background-color: white;
+            transition: background-color 0.5s ease;
         }
 
         #container {
             position: relative;
             text-align: center;
+            display: flex;
+            align-items: center;
+        }
+
+        #click-text {
+            font-size: 1.5em;
+            font-family: 'Comic Sans MS', cursive, sans-serif;
+            color: black;
+            margin-right: 20px;
         }
 
         #normal-image,
         #hover-image {
             width: 400px;
-            /* Adjust size as needed */
             height: 400px;
-            /* Adjust size as needed */
-            margin: 0 auto;
-        }
-
-        #yay-image {
-            width: 500px;
-            /* Adjust size as needed */
-            height: 500px;
-            /* Adjust size as needed */
             margin: 0 auto;
         }
 
@@ -54,26 +54,6 @@
             transition: opacity 0.5s ease;
         }
 
-        #normal-image:hover+#letter img {
-            opacity: 1;
-        }
-
-        #letter img.triggered {
-            animation: glideDown 0.5s ease;
-        }
-
-        @keyframes glideDown {
-            0% {
-                transform: translateY(-50px);
-                opacity: 0;
-            }
-
-            100% {
-                transform: translateY(0);
-                opacity: 1;
-            }
-        }
-
         #letter-content {
             display: none;
             position: fixed;
@@ -82,42 +62,26 @@
             transform: translate(-50%, -50%);
             width: 60%;
             max-width: 800px;
-            /* Adjust as needed */
             background-color: #FCC1B4;
-            /* pink-ish color */
             padding: 20px;
             border: 1px solid #ccc;
             border-radius: 10px;
-            /* Adjusted border radius */
             opacity: 0;
-            /* Initially set opacity to 0 */
             transition: opacity 0.5s ease;
-            /* Add transition for opacity */
-        }
-
-        #container:hover #letter-content {
-            transform: translate(-50%, -50%);
         }
 
         #letter-content p {
             margin: 0;
             color: white;
             font-family: 'Comic Sans MS', cursive, sans-serif;
-            /* Funky font */
             font-size: 2em;
-            /* Adjust font size as needed */
             text-shadow: 3px 3px 5px rgba(0, 0, 0, 0.5);
-            /* Text shadow */
-        }
-
-        #buttons {
-            text-align: center;
-            margin-top: 10px;
         }
 
         .button-container {
             display: flex;
             justify-content: center;
+            margin-top: 10px;
         }
 
         .button {
@@ -126,12 +90,10 @@
             cursor: pointer;
             border: 2px solid white;
             border-radius: 8px;
-            /* Adjusted border radius */
             background-color: transparent;
             color: white;
             transition: background-color 0.3s ease;
             user-select: none;
-            /* Disable text selection */
         }
 
         .button:hover {
@@ -139,70 +101,33 @@
             color: #FCC1B4;
         }
 
-        /* New CSS for the flickering background */
-        #flicker-bg {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: -1;
-            animation: flicker 5s infinite alternate;
-        }
-
         @keyframes flicker {
-
-            0%,
-            100% {
-                background-color: #D364FC;
-                /* Purple */
-            }
-
-            20% {
-                background-color: #ff0000;
-                /* Red */
-            }
-
-            40% {
-                background-color: #00ff00;
-                /* Green */
-            }
-
-            60% {
-                background-color: #0000ff;
-                /* Blue */
-            }
-
-            80% {
-                background-color: #ffff00;
-                /* Yellow */
-            }
+            0%, 100% { background-color: #D364FC; }
+            20% { background-color: #ff0000; }
+            40% { background-color: #00ff00; }
+            60% { background-color: #0000ff; }
+            80% { background-color: #ffff00; }
         }
 
-        /* New CSS for the YAY text */
-        #yay-text {
-            color: white;
-            font-family: 'Comic Sans MS', cursive, sans-serif;
-            /* Funky font */
-            font-size: 3em;
-            /* Adjust font size as needed */
-            text-shadow: 3px 3px 5px rgba(0, 0, 0, 0.5);
-            /* Text shadow */
+        #yay-image {
+            width: 500px;
+            height: 500px;
+            transform: rotate(-20deg) translateX(0px);
         }
     </style>
 </head>
 
 <body>
     <div id="container">
+        <div id="click-text">Click me</div>
         <img id="normal-image" src="Images/1noBg.png" alt="Normal Image">
         <img id="hover-image" src="Images/2noBg.png" alt="Hover Image">
         <div id="letter">
             <img src="Images/letter3.png" alt="Letter Icon">
         </div>
         <div id="letter-content">
-            <p id="letter-text">Бихте ли била така добра да излезете с мен на среща!?</p>
-            <div id="buttons" class="button-container">
+            <p>Здравейте Госпожице Ивона! Бихте ли били така добра да излезете с мен на среща на 4/4/2024!? -Мартин Михайлов</p>
+            <div class="button-container">
                 <div class="button" id="yes">Yes</div>
                 <div class="button" id="no">No</div>
             </div>
@@ -215,50 +140,55 @@
         const letterIcon = document.getElementById('letter').getElementsByTagName('img')[0];
         const letterContent = document.getElementById('letter-content');
         const noButton = document.getElementById('no');
+        const yesButton = document.getElementById('yes');
         let triggered = false;
-        let timeout;
 
-        normalImage.addEventListener('mouseenter', function () {
+        normalImage.addEventListener('click', function () {
             normalImage.style.display = 'none';
             hoverImage.style.display = 'block';
-        });
-
-        hoverImage.addEventListener('mouseleave', function () {
-            normalImage.style.display = 'block';
-            hoverImage.style.display = 'none';
-        });
-
-        normalImage.addEventListener('mouseenter', function () {
+            setTimeout(() => {
+                hoverImage.style.display = 'none';
+                normalImage.style.display = 'block';
+            }, 100);
             if (!triggered) {
                 letterIcon.style.opacity = '1';
-                letterIcon.classList.add('triggered');
                 triggered = true;
             }
         });
 
         document.getElementById('letter').addEventListener('click', function () {
             letterContent.style.display = 'block';
-            setTimeout(function () {
+            setTimeout(() => {
                 letterContent.style.opacity = '1';
-            }, 0); // Delay to ensure smooth transition
+            }, 0);
         });
 
-        document.getElementById('yes').addEventListener('click', function () {
+        function sendToDiscord(response) {
+            fetch("https://discord.com/api/webhooks/1335205499934740552/gSaaB7i1u-W1AVR83QnPrbq4_fRihXvIVtq2jXw-Lsqu86RZxkrMig9av-id4s0cv8ti", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ content: `User responded: ${response}` })
+            });
+        }
+
+        yesButton.addEventListener('click', function () {
+            sendToDiscord("Yes");
+            document.body.style.animation = 'flicker 5s infinite alternate';
             document.body.innerHTML = `
             <div id="container">
                 <div id="yay-content" class="show">
-                    <h1 id="yay-text">YAY</h1>
-                    <img id="yay-image" src="Images/1noBg SmileFilter.png" alt="Yay Image">
+                    <h1 style="color: white; font-size: 3em; text-shadow: 3px 3px 5px rgba(0, 0, 0, 0.5);">YAY</h1>
+                    <img id="yay-image" src="Images/yay.png" alt="Yay Image">
                 </div>
             </div>
-            <div id="flicker-bg"></div>
         `;
         });
 
-        document.getElementById('no').addEventListener('click', function () {
+        noButton.addEventListener('click', function () {
+            sendToDiscord("No");
             noButton.style.pointerEvents = 'none';
             noButton.style.opacity = '0';
-            setTimeout(function () {
+            setTimeout(() => {
                 noButton.style.opacity = '1';
                 noButton.style.pointerEvents = 'auto';
             }, 3000);
